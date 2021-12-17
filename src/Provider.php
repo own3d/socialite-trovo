@@ -75,10 +75,17 @@ class Provider extends AbstractProvider implements ProviderInterface
     /**
      * {@inheritdoc}
      */
-    protected function getTokenFields($code)
+    public function getAccessTokenResponse($code)
     {
-        return array_merge(parent::getTokenFields($code), [
-            'grant_type' => 'authorization_code',
+        $response = $this->getHttpClient()->post($this->getTokenUrl(), [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'client-id' => $this->clientId,
+            ],
+            'form_params' => $this->getTokenFields($code),
         ]);
+
+        return json_decode($response->getBody(), true);
     }
 }
