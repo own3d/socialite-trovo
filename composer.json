@@ -15,7 +15,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Own3d\\SocialiteSlack\\": "src/"
+      "Own3d\\SocialiteTrovo\\": "src/"
     }
   }
 }
