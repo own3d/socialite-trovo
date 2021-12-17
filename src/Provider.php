@@ -52,6 +52,7 @@ class Provider extends AbstractProvider implements ProviderInterface
             'https://open-api.trovo.live/openplatform/getuserinfo', [
             'headers' => [
                 'Authorization' => 'OAuth ' . $token,
+                'Client-ID' => $this->clientId,
             ],
         ]);
 
@@ -80,10 +81,9 @@ class Provider extends AbstractProvider implements ProviderInterface
         $response = $this->getHttpClient()->post($this->getTokenUrl(), [
             'headers' => [
                 'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-                'client-id' => $this->clientId,
+                'Client-ID' => $this->clientId,
             ],
-            'form_params' => $this->getTokenFields($code),
+            'json' => $this->getTokenFields($code),
         ]);
 
         return json_decode($response->getBody(), true);
